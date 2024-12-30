@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <title>
+            Strategy  
+        </title>
+    </head>
+    <body>
+        <h1>SME</h1>
+        <form id="sme1" method="POST" action="{% url 'strategy' %}">
+            {% csrf_token %}
+           <label for="stratname">Strategy:</label><br>
+           <input type="text" id="stratname" name="stratname" value="name a stock"><br>
+
+           <label for="symbol">Symbol</label><br>
+           <input type="text" id="symbol" name="symbol" value="EG:AAPL"><br>
+
+           <label for="start_date">Start Date</label><br>
+           <input type="date" id="start_date" name="start_date"><br>
+
+           <label for="end_date">End Date</label><br>
+           <input type="date" id="end_date" name="end_date"><br>
+
+           <label for="short_window">Short-term MA Period (in minutes):</label><br>
+           <input type="number" id="short_window" name="short_window" min="1" required><br>
+
+           <label for="long_window">Long-term MA Period (in minutes):</label><br>
+           <input type="number" id="long_window" name="long_window" min="1" required><br>
+           <button type="submit">Run Backtest</button>
+        </form>
+    </body>
+</html>
