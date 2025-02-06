@@ -19,9 +19,12 @@ from django.urls import path
 from backtest.views import index
 from backtest.views import strategy
 from backtest.views import results
+from backtest.views import news
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('strategy/',strategy,name='strategy'),
     path('results/',results, name='results'),
+    path('news/',news,name='news'),
+
 ]

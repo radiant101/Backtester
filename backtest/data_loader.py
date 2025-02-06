@@ -11,7 +11,7 @@ from datetime import datetime
         return None """
 
 def load_ohlc_data(symbol, start_date, end_date):
-    base_path = f"E:\\stock_data\\candles\\{symbol}"
+    base_path = f"D:\\stock_data\\candles\\{symbol}"
     dflist = []
 
     try:
@@ -67,9 +67,12 @@ def load_ohlc_data(symbol, start_date, end_date):
     final_df=final_df[(final_df['date']>=start_date_dt)&(final_df['date']<=end_date_dt)]
     final_df = final_df.ffill().bfill()
     # Specify the CSV file path
-    csv_file_path = os.path.join(os.getcwd(), f"{symbol}_ohlc_data.csv")
-    final_df.to_csv(csv_file_path, index=False)
+    #csv_file_path = os.path.join(os.getcwd(), f"{symbol}_ohlc_data.csv")
+    #final_df.to_csv(csv_file_path, index=False)
 
-    print(f"Data saved to: {csv_file_path}")  # Output the CSV file path
-    return final_df, csv_file_path  # Return the DataFrame and the CSV file path
+    print(df.columns)
+    print(df['close'].isna().sum())  # Count NaN values
+    print(df['close'].dtype)  # Check data type
+    #print(f"Data saved to: {csv_file_path}")  # Output the CSV file path
+    return final_df # Return the DataFrame and the CSV file path
     
