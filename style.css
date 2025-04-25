@@ -1,0 +1,90 @@
+body{
+    margin:auto;
+}
+
+
+h1{
+    text-align: left;
+    font-size: 40px;
+    color: aliceblue;
+    background-color: rgb(26, 26, 26);
+    padding: 20px ;
+    margin: auto;
+    border:10px;
+}
+.navbar{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.navdiv{
+    display :flex;
+    /* justify left and right karta or where content lies */
+    justify-content: space-between;
+    align-items: center;
+}
+.navlogo a{
+    text-decoration: none;
+    color:white;
+    text-align: left;
+}
+li{
+    list-style:none;
+    /* to make list in sing line */
+    
+    display : inline-block; 
+}
+li a{
+    text-decoration: none;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    margin-right: 25px;
+}
+button{
+    padding :10px;
+    width: 90px;
+    background-color: rgb(78, 22, 78);
+    border-radius: 10px;
+}
+button a{
+    color: rgb(250, 243, 250);
+    font-weight: bold;
+    font-size: 15px;
+}
+.container{
+    width:100%;
+    height:100%;
+}
+.banner{
+    width:100%;
+    height:65vh;
+    background-image: url('back.jpg');
+    background-position: bottom;
+    background-size: cover;
+    display: flex;
+}
+.bannertext{
+    color:white;
+    font-size: 25px;
+    justify-content: space-between;
+}
+
+.cardcontainer{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.card{
+    width: 225px;
+    background-color: azure;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+    margin: 10px;
+}
+.card img {
+    width: 100%; /* Full width of the card */
+    height: auto; /* Maintain aspect ratio */
+    max-height: 200px; /* Maximum height */
+    object-fit: cover; /* Cover the area */
+}
