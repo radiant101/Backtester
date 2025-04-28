@@ -20,7 +20,7 @@ def get_headlines(url, tag):
     else:
         return []
 
-# List of sites
+
 sites = [
     {'url': 'https://www.livemint.com/', 'tag': 'h2'},
     {'url': 'https://www.livemint.com/', 'tag': 'h3'},
@@ -49,7 +49,6 @@ df.to_csv('filtered_headlines.csv', index=False)
 from transformers import BertTokenizer, BertForSequenceClassification
 import torch
 
-# Load the pre-trained FinBERT model and tokenizer
 tokenizer = BertTokenizer.from_pretrained('yiyanghkust/finbert-tone')
 model = BertForSequenceClassification.from_pretrained('yiyanghkust/finbert-tone')
 
@@ -73,14 +72,14 @@ def get_overall_sentiment(df):
     overall_sentiment = sentiment_counts.idxmax()  # The most frequent sentiment
     return overall_sentiment
 
-# Calculate overall sentiment
+
 overall_sentiment = get_overall_sentiment(df_all_headlines)
 
-# Save all headlines with their sentiment to a CSV
+
 df_all_headlines.to_csv('headlines_with_sentiment.csv', index=False)
 
 # Get top 5 headlines
 top_headlines = df_all_headlines['headline'].value_counts().head(5)
 
-# Return top 5 headlines and overall sentiment (this will be used in the view)
+
 top_5_headlines = top_headlines.tolist()  # Top 5 headlines

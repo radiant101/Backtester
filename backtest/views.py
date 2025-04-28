@@ -12,6 +12,7 @@ import time
 from .metrics import calculate_maxdrawdown
 from scipy.stats import zscore
 import numpy as np 
+import requests
 
 
 # Create your views here.
@@ -73,46 +74,16 @@ def results(request):
     if not symbol:
         return HttpResponse("Missing symbol parameter.", status=400)
 
-    # Log before loading CSV
-    print("Loading CSV data.")
-    start_time = time.time()  # Start timing
-
-    # Load the processed CSV file
-    csv_file_path = os.path.join(os.getcwd(), f"{symbol}_ohlc_data.csv")
-    if not os.path.exists(csv_file_path):
-        return HttpResponse("CSV file not found.", status=404)
-
-    ohlc_data = pd.read_csv(csv_file_path)
-    sharpe_val=calculate_sharpe(csv_file_path)
-    max_drawdown=calculate_maxdrawdown(csv_file_path)
-    # Ensure 'date' is parsed correctly and in datetime format
-    ohlc_data['date'] = pd.to_datetime(ohlc_data['date'])
-
-    # Log after loading CSV
-    print(f"CSV loaded in {time.time() - start_time:.2f} seconds.")
-
-    # Log before creating the Plotly chart
-    print(f"Dataframe shape: {ohlc_data.shape}")
-
-    # Create Plotly chart with the entire dataset
-    fig = px.line(
-        ohlc_data,
-        x='date',
-        y=['short_ma', 'long_ma', 'close'],
-        title=f"Backtesting Results for {symbol} ({short_window}-{long_window})",
-        labels={'value': 'Price', 'variable': 'Legend'},
-        template='plotly_dark'  # Optional: Apply a template for better visuals
-    )
-
-    chart_json = fig.to_json()
-
-    # Log after creating the chart
-    print("Plotly chart created successfully.")
-
+    fastapi_url = f"http://127.0.0.1:8001/result?symbol={symbol}&short_window={short_window}&long_window={long_window}"
+    response=requests.GET.get(fastapi_url)
+    if response.status_code != 200:
+        return HttpResponse("Failed to load data from API.", status=response.status_code)
+    data = response.json()
+    chart_json = data.get('chart_json', '{}')
     # Render the template
     return render(request, 'backtest/results.html', {
     'chart_json': chart_json,
-    'sharpe_val': sharpe_val,
-    'max_drawdown': max_drawdown
+    'sharpe_val': 0,
+    'max_drawdown': 0,
 })
 
